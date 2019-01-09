@@ -1,2 +1,2 @@
-# c--coding-challenge
+# C-Coding-Challenge
 parsing arithmetic expression 
