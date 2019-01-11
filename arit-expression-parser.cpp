@@ -1,18 +1,15 @@
 #include <bits/stdc++.h> 
 using namespace std;
-const int N = 100007;
 //operation : +, -, x, /.
 int priority(string oper){
 	int res;
 	if(oper == "+" || oper == "-")
 	{
 		res = 1;
-	}
-	else if(oper == "*" || oper == "/")
+	}else if(oper == "*" || oper == "/")
 	{
 		res = 2;
-	}
-	else
+	}else
 	{
 		res = 0;
 	}
@@ -34,6 +31,31 @@ string to_string(char c){
 bool is_digit(char c){
 	return c>='0' && c<='9';
 }
+int compute(int a, int b, string oper)
+{
+	int res = 0;
+	if(oper == "+")
+	{
+		res = a + b;
+	}
+	if(oper == "-")
+	{
+		res = a - b;
+	}
+	if(oper == "*")
+	{
+		res = a * b;
+	}
+	if(oper == "/")
+	{
+		res = a / b;
+	}
+	return res;
+}
+bool is_operator(string str)
+{
+	return str == "+" || str == "-" || str == "*" || str == "/";
+}
 queue<string> postfix_notation(string expr)
 {
 	queue<string> rpn;
@@ -43,12 +65,10 @@ queue<string> postfix_notation(string expr)
 		if(is_digit(expr[i]))
 		{
 			number += expr[i];
-		}
-		else if(expr[i] == '(')
+		}else if(expr[i] == '(')
 		{
 			operators.push(to_string(expr[i]));
-		}
-		else if(expr[i] == ')'){
+		}else if(expr[i] == ')'){
 			if(number != "")
 			{
 				rpn.push(number);
@@ -60,14 +80,12 @@ queue<string> postfix_notation(string expr)
 				if(oper == "(")
 				{
 					break;
-				}
-				else
+				}else
 				{
 					rpn.push(oper);
 				}
 			}
-		}
-		else
+		}else
 		{
 			if(number != "")
 			{
@@ -76,8 +94,7 @@ queue<string> postfix_notation(string expr)
 			}	
 			if(operators.empty()){
 				operators.push(to_string(expr[i]));
-			}
-			else
+			}else
 			{
 				string oper = operators.top();
 				if(priority(to_string(expr[i])) <= priority(oper))
@@ -102,7 +119,25 @@ queue<string> postfix_notation(string expr)
 }
 int left_to_right_algo(queue<string> Q)
 {
-	
+	stack<int> waiting;
+	while(!Q.empty()){
+		string str = Q.front();
+		Q.pop();
+		if(is_operator(str))
+		{
+			int curent;
+			int a,b;
+			b = waiting.top();
+			waiting.pop();
+			a = waiting.top();
+			waiting.pop();
+			waiting.push(compute(a, b, str));
+		}else
+		{
+			waiting.push(to_int(str));
+		}
+	}
+	return waiting.top();
 }
 int main()
 {
@@ -110,6 +145,5 @@ int main()
     string expression;
     cin >> expression;
     queue<string> rpn = postfix_notation(expression);
-    //cout<<Q.size()<<endl;
-    
+    cout<<left_to_right_algo(rpn);
 }
