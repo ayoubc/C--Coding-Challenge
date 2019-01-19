@@ -1,2 +1,5 @@
 # C-Coding-Challenge
-parsing arithmetic expression 
+The challenge is about implmenting a c++ program to parse an arithmetic expression like 3+(5+(4*3))-12 and print it's value (for the example the result should be 8). In this problem i used the Reverse Polish Notation algorithm https://en.wikipedia.org/wiki/Reverse_Polish_notation. The idea is about to create a queue and stack that stores the operators, then exploit the queue to calcuate the result.
+# How to obtein the queue ?
+first we will use a queue and a stack were we keep track the operators used in the expression.
+When parsin the expression if we find a number push it to the queue. otherwise if it's an operator, if the stack is empty just push it to the stack, else we pop operators from the queue and push them to queue as long as the curent operator we found in the expression has priority greater or equal than the curent operator from the stack. Example if this is the stack : + - * and the curent operator is / then we find that the prioriy of / and * are equal so we push * in the queue, and the stack became + -. Now the priority of / is greater than the priority of + and - so the pop them from the stack and push them to the queue, and the stack now is empty so there is no more comparaisons so we push / in the stack. Now the stack is just contain the / operator.
