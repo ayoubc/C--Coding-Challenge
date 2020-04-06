@@ -1,4 +1,4 @@
-# C-Coding-Challenge
+# Cpp-Coding-Challenge
 The challenge is about implmenting a c++ program to parse an arithmetic expression like 3+(5+(4*3))-12 and print it's value (for the example the result should be 8). In this problem i used the Reverse Polish Notation algorithm https://en.wikipedia.org/wiki/Reverse_Polish_notation. The idea is about to create a queue and stack that stores the operators, then exploit the queue to calcuate the result.
 # How to get the queue ?
 First we will use a queue and a stack were we keep track the operators used in the expression.
